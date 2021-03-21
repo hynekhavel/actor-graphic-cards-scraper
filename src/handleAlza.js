@@ -1,6 +1,6 @@
 const Apify = require('apify');
 
-const { ALZA_BASE_URL } = require('./const');
+const { ALZA_BASE_URL, ALZA } = require('./const');
 
 exports.handleAlza = async ($) => {
     const requestQueue = await Apify.openRequestQueue();
@@ -16,7 +16,7 @@ exports.handleAlza = async ($) => {
 
         if ($el.hasClass('canBuy') && $el.hasClass('inStockAvailability')) {
             output.push({
-                shop: 'ALZA',
+                shop: ALZA,
                 name: $el.find('a.name').text(),
                 price: $el.find('.c2').text(),
             });
@@ -27,7 +27,7 @@ exports.handleAlza = async ($) => {
         await requestQueue.addRequest(
             {
                 url: `${ALZA_BASE_URL}${nextPageHref}`,
-                userData: { label: 'ALZA' },
+                userData: { label: ALZA },
             },
             { forefront: true },
         );

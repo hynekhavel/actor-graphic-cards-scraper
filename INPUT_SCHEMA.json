@@ -1,15 +1,15 @@
 {
-    "title": "CheerioCrawler Template",
-    "description": "lorem ipsum",
+    "title": "GraphicCardsScraper",
+    "description": "Input options for setting proxy, output filter and start URLs",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
         "filter": {
             "title": "GPU Filter",
             "type": "array",
-            "description": "List of GPU names (will be searched in eshop title)",
+            "description": "List of GPU names (will be searched in e-shop title). If omitted all in-stock GPUs will be added to dataset.",
             "editor": "stringList",
-            "prefill": ["GT 710"],
+            "default": [],
             "example": [
                 "RTX 3060",
                 "RTX 3060 ti",
@@ -28,7 +28,43 @@
             "description": "When true, scraper will use czech residential proxy.",
             "editor": "checkbox",
             "default": true
+        },
+        "startUrlAlza": {
+            "title": "Start URL Alza",
+            "type": "string",
+            "description": "Starting URL for scraping Alza.cz. Should lead to graphic cards section.",
+            "editor": "textfield",
+            "default": "https://www.alza.cz/graficke-karty/18842862.htm",
+            "prefill": "https://www.alza.cz/graficke-karty/18842862.htm",
+            "example": "https://www.alza.cz/graficke-karty/18842862.htm"
+        },
+        "startUrlCzc": {
+            "title": "Start URL CZC",
+            "type": "string",
+            "description": "Starting URL for scraping czc.cz. Should lead to graphic cards section.",
+            "editor": "textfield",
+            "default": "https://www.czc.cz/graficke-karty/produkty",
+            "prefill": "https://www.czc.cz/graficke-karty/produkty",
+            "example": "https://www.czc.cz/graficke-karty/produkty"
+        },
+        "startUrlMironet": {
+            "title": "Start URL Mironet",
+            "type": "string",
+            "description": "Starting URL for scraping mironet.cz. Should lead to graphic cards section.",
+            "editor": "textfield",
+            "default": "https://www.mironet.cz/graficke-karty+c14402",
+            "prefill": "https://www.mironet.cz/graficke-karty+c14402",
+            "example": "https://www.mironet.cz/graficke-karty+c14402"
+        },
+        "startUrlTsbohemia": {
+            "title": "Start URL TSBohemia",
+            "type": "string",
+            "description": "Starting URL for scraping tsbohemia.cz. Should lead to graphic cards section.",
+            "editor": "textfield",
+            "default": "https://www.tsbohemia.cz/elektronika-a-it-pc-komponenty-graficke-karty_c5581.html",
+            "prefill": "https://www.tsbohemia.cz/elektronika-a-it-pc-komponenty-graficke-karty_c5581.html",
+            "example": "https://www.tsbohemia.cz/elektronika-a-it-pc-komponenty-graficke-karty_c5581.html"
         }
     },
-    "required": ["filter", "useProxy"]
+    "required": ["useProxy"]
 }

@@ -1,6 +1,6 @@
 const Apify = require('apify');
 
-const { CZC_BASE_URL } = require('./const');
+const { CZC_BASE_URL, CZC } = require('./const');
 
 exports.handleCzc = async ($) => {
     const requestQueue = await Apify.openRequestQueue();
@@ -17,7 +17,7 @@ exports.handleCzc = async ($) => {
 
         if (price && $(isInStock).length) {
             output.push({
-                shop: 'CZC',
+                shop: CZC,
                 name,
                 price,
             });
@@ -28,7 +28,7 @@ exports.handleCzc = async ($) => {
         await requestQueue.addRequest(
             {
                 url: `${CZC_BASE_URL}${nextPageHref}`,
-                userData: { label: 'CZC' },
+                userData: { label: CZC },
             },
             { forefront: true },
         );

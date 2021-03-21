@@ -1,8 +1,10 @@
 const Apify = require('apify');
-const { handleAlza } = require('./src/handleAlza');
-const { handleCzc } = require('./src/handleCzc');
-const { handleMironet } = require('./src/handleMironet');
-const { handleTsbohemia } = require('./src/handleTsbohemia');
+const { handleAlza } = require('./handleAlza');
+const { handleCzc } = require('./handleCzc');
+const { handleMironet } = require('./handleMironet');
+const { handleTsbohemia } = require('./handleTsbohemia');
+
+const { ALZA, CZC, MIRONET, TSBOHEMIA } = require('./const');
 
 const {
     utils: { log },
@@ -12,31 +14,25 @@ const MAX_CONCURRENCY = 10;
 
 Apify.main(async () => {
     let results = [];
-    const { filter, useProxy } = await Apify.getInput();
+    const { filter, useProxy, startUrlAlza, startUrlCzc, startUrlMironet, startUrlTsbohemia } = await Apify.getInput();
 
     const requestQueue = await Apify.openRequestQueue();
 
-    const alzaStart = 'https://www.alza.cz/graficke-karty/18842862.htm';
-    const czcStart = 'https://www.czc.cz/graficke-karty/produkty';
-    const mironetStart = 'https://www.mironet.cz/graficke-karty+c14402/';
-    const tsbohemiaStart =
-        'https://www.tsbohemia.cz/elektronika-a-it-pc-komponenty-graficke-karty_c5581.html';
-
     await requestQueue.addRequest({
-        url: alzaStart,
-        userData: { label: 'ALZA' },
+        url: startUrlAlza,
+        userData: { label: ALZA },
     });
     await requestQueue.addRequest({
-        url: czcStart,
-        userData: { label: 'CZC' },
+        url: startUrlCzc,
+        userData: { label: CZC },
     });
     await requestQueue.addRequest({
-        url: mironetStart,
-        userData: { label: 'MIRONET' },
+        url: startUrlMironet,
+        userData: { label: MIRONET },
     });
     await requestQueue.addRequest({
-        url: tsbohemiaStart,
-        userData: { label: 'TSBOHEMIA' },
+        url: startUrlTsbohemia,
+        userData: { label: TSBOHEMIA },
     });
 
     const options = {
@@ -51,19 +47,19 @@ Apify.main(async () => {
         }) => {
             log.info('Page opened.', { label, url });
 
-            if (label === 'ALZA') {
+            if (label === ALZA) {
                 const resultsAlza = await handleAlza($);
 
                 results = [...results, ...resultsAlza];
-            } else if (label === 'CZC') {
+            } else if (label === CZC) {
                 const resultsCzc = await handleCzc($);
 
                 results = [...results, ...resultsCzc];
-            } else if (label === 'MIRONET') {
+            } else if (label === MIRONET) {
                 const resultsMironet = await handleMironet($);
 
                 results = [...results, ...resultsMironet];
-            } else if (label === 'TSBOHEMIA') {
+            } else if (label === TSBOHEMIA) {
                 const resultsTsBohemia = await handleTsbohemia($);
 
                 results = [...results, ...resultsTsBohemia];
@@ -81,17 +77,19 @@ Apify.main(async () => {
     const crawler = new Apify.CheerioCrawler(options);
     await crawler.run();
 
-    const filteredResults = results.filter((result) => {
-        const parsedName = result.name.replace(/ /g, '').toLowerCase();
+    if (filter && filter.length) {
+        results = results.filter((result) => {
+            const parsedName = result.name.replace(/ /g, '').toLowerCase();
 
-        for (const item of filter) {
-            const parsedFilter = item.replace(/ /g, '').toLowerCase();
+            for (const item of filter) {
+                const parsedFilter = item.replace(/ /g, '').toLowerCase();
 
-            return parsedName.search(parsedFilter) > -1;
-        }
-    });
+                return parsedName.search(parsedFilter) > -1;
+            }
+        });
+    }
 
     if (results.length > 0) {
-        await Apify.pushData({ data: filteredResults });
+        await Apify.pushData({ results });
     }
 });

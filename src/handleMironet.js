@@ -1,6 +1,6 @@
 const Apify = require('apify');
 
-const { MIRONET_BASE_URL } = require('./const');
+const { MIRONET_BASE_URL, MIRONET } = require('./const');
 
 exports.handleMironet = async ($) => {
     const requestQueue = await Apify.openRequestQueue();
@@ -27,7 +27,7 @@ exports.handleMironet = async ($) => {
 
             if (isInStockResponse.body.search('Skladem') > -1) {
                 output.push({
-                    shop: 'MIRONET',
+                    shop: MIRONET,
                     name,
                     price,
                 });
@@ -39,7 +39,7 @@ exports.handleMironet = async ($) => {
         await requestQueue.addRequest(
             {
                 url: `${MIRONET_BASE_URL}${nextPageHref}`,
-                userData: { label: 'MIRONET' },
+                userData: { label: MIRONET },
             },
             { forefront: true },
         );

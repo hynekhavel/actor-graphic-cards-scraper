@@ -1,6 +1,6 @@
 const Apify = require('apify');
 
-const { TSBOHEMIA_BASE_URL } = require('./const');
+const { TSBOHEMIA_BASE_URL, TSBOHEMIA } = require('./const');
 
 exports.handleTsbohemia = async ($) => {
     const requestQueue = await Apify.openRequestQueue();
@@ -8,7 +8,6 @@ exports.handleTsbohemia = async ($) => {
         .next('.numpage')
         .find('a')
         .attr('href');
-
     const items = $('#gallarea > .prodbox');
     const output = [];
 
@@ -21,7 +20,7 @@ exports.handleTsbohemia = async ($) => {
 
         if (price && isInStockText.search('SKLADEM') > -1) {
             output.push({
-                shop: 'TSBOHEMIA',
+                shop: TSBOHEMIA,
                 name,
                 price,
             });
@@ -32,7 +31,7 @@ exports.handleTsbohemia = async ($) => {
         await requestQueue.addRequest(
             {
                 url: `${TSBOHEMIA_BASE_URL}${nextPageHref}`,
-                userData: { label: 'TSBOHEMIA' },
+                userData: { label: TSBOHEMIA },
             },
             { forefront: true },
         );
