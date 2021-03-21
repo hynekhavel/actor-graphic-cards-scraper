@@ -1,0 +1,34 @@
+{
+    "title": "CheerioCrawler Template",
+    "description": "lorem ipsum",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "filter": {
+            "title": "GPU Filter",
+            "type": "array",
+            "description": "List of GPU names (will be searched in eshop title)",
+            "editor": "stringList",
+            "prefill": "GT 710",
+            "example": [
+                "RTX 3060",
+                "RTX 3060 ti",
+                "RTX 3070",
+                "RTX 3080",
+                "RTX 3090",
+                "RX 6700 XT",
+                "RX 6800",
+                "RX 6800 XT",
+                "RX 6900 XT"
+            ]
+        },
+        "useProxy": {
+            "title": "Use proxy",
+            "type": "boolean",
+            "description": "When true, scraper will use czech residential proxy.",
+            "editor": "checkbox",
+            "default": true
+        }
+    },
+    "required": ["filter", "useProxy"]
+}
