@@ -9,7 +9,7 @@
             "type": "array",
             "description": "List of GPU names (will be searched in eshop title)",
             "editor": "stringList",
-            "prefill": "GT 710",
+            "prefill": ["GT 710"],
             "example": [
                 "RTX 3060",
                 "RTX 3060 ti",
