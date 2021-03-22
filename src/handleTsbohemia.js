@@ -11,6 +11,7 @@ exports.handleTsbohemia = async ($) => {
     const items = $('#gallarea > .prodbox');
     const output = [];
 
+    // loop through all items in page
     for (let i = 0; i < items.length; i++) {
         const el = items.eq(i);
         const $el = $(el);
@@ -18,6 +19,7 @@ exports.handleTsbohemia = async ($) => {
         const price = $el.find('.price .wvat').text();
         const isInStockText = $el.find('.stiqty em').text();
 
+        // only add to output when item has price and is in stock
         if (price && isInStockText.search('SKLADEM') > -1) {
             output.push({
                 shop: TSBOHEMIA,
@@ -27,6 +29,7 @@ exports.handleTsbohemia = async ($) => {
         }
     }
 
+    // if there is next page add URL to queue
     if (nextPageHref) {
         await requestQueue.addRequest(
             {

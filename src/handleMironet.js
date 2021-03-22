@@ -8,6 +8,7 @@ exports.handleMironet = async ($) => {
     const items = $('#productContainer > div');
     const output = [];
 
+    // loop through all items in page
     for (let i = 0; i < items.length; i++) {
         const el = items.eq(i);
         const $el = $(el);
@@ -16,6 +17,7 @@ exports.handleMironet = async ($) => {
 
         if (price) {
             const stockId = $el.find('.skladovost').attr('rel');
+            // call to stock info (Mironet download info about stock asynchronously)
             const isInStockResponse = await Apify.utils.requestAsBrowser({
                 url: 'https://sklad.mironet.cz/jtd_axstoreShort.php',
                 method: 'POST',
@@ -25,6 +27,7 @@ exports.handleMironet = async ($) => {
                 payload: `x=${stockId}`,
             });
 
+            // only add to output when item has price and is in stock
             if (isInStockResponse.body.search('Skladem') > -1) {
                 output.push({
                     shop: MIRONET,
@@ -35,6 +38,7 @@ exports.handleMironet = async ($) => {
         }
     }
 
+    // if there is next page add URL to queue
     if (nextPageHref) {
         await requestQueue.addRequest(
             {

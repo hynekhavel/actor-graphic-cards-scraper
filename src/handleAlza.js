@@ -10,10 +10,12 @@ exports.handleAlza = async ($) => {
     const items = $('.browsingitemcontainer .browsingitem');
     const output = [];
 
+    // loop through all items in page
     for (let i = 0; i < items.length; i++) {
         const el = items.eq(i);
         const $el = $(el);
 
+        // only add to output when item has price and is in stock
         if ($el.hasClass('canBuy') && $el.hasClass('inStockAvailability')) {
             output.push({
                 shop: ALZA,
@@ -23,6 +25,7 @@ exports.handleAlza = async ($) => {
         }
     }
 
+    // if there is next page add URL to queue
     if (nextPageHref) {
         await requestQueue.addRequest(
             {

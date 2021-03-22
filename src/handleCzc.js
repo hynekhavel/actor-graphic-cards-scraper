@@ -8,6 +8,7 @@ exports.handleCzc = async ($) => {
     const items = $('.new-tile');
     const output = [];
 
+    // loop through all items in page
     for (let i = 0; i < items.length; i++) {
         const el = items.eq(i);
         const $el = $(el);
@@ -15,6 +16,7 @@ exports.handleCzc = async ($) => {
         const price = $el.find('.price .price-vatin').text();
         const isInStock = $el.find('.availability-state-on-stock');
 
+        // only add to output when item has price and is in stock
         if (price && $(isInStock).length) {
             output.push({
                 shop: CZC,
@@ -24,6 +26,7 @@ exports.handleCzc = async ($) => {
         }
     }
 
+    // if there is next page add URL to queue
     if (nextPageHref) {
         await requestQueue.addRequest(
             {

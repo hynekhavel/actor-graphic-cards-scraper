@@ -14,10 +14,19 @@ const MAX_CONCURRENCY = 10;
 
 Apify.main(async () => {
     let results = [];
-    const { filter, useProxy, startUrlAlza, startUrlCzc, startUrlMironet, startUrlTsbohemia } = await Apify.getInput();
+    // user input
+    const {
+        filter,
+        useProxy,
+        startUrlAlza,
+        startUrlCzc,
+        startUrlMironet,
+        startUrlTsbohemia,
+    } = await Apify.getInput();
 
     const requestQueue = await Apify.openRequestQueue();
 
+    // add all start URLs from input to queue
     await requestQueue.addRequest({
         url: startUrlAlza,
         userData: { label: ALZA },
@@ -67,6 +76,7 @@ Apify.main(async () => {
         },
     };
 
+    // add proxy config to crawler (only when user allows it in input)
     if (useProxy) {
         options.proxyConfiguration = await Apify.createProxyConfiguration({
             groups: ['RESIDENTIAL'],
@@ -77,18 +87,20 @@ Apify.main(async () => {
     const crawler = new Apify.CheerioCrawler(options);
     await crawler.run();
 
+    // filter results by filter input (if provided)
     if (filter && filter.length) {
         results = results.filter((result) => {
-            const parsedName = result.name.replace(/ /g, '').toLowerCase();
+            const parsedName = result.name.replace(/\s/g, '').toLowerCase();
 
             for (const item of filter) {
-                const parsedFilter = item.replace(/ /g, '').toLowerCase();
+                const parsedFilter = item.replace(/\s/g, '').toLowerCase();
 
                 return parsedName.search(parsedFilter) > -1;
             }
         });
     }
 
+    // save output to default dataset
     if (results.length > 0) {
         await Apify.pushData({ results });
     }
