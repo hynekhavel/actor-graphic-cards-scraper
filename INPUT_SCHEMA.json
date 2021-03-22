@@ -1,5 +1,5 @@
 {
-    "title": "GraphicCardsScraper",
+    "title": "GraphicsCardsScraper",
     "description": "Input options for setting proxy, output filter and start URLs",
     "type": "object",
     "schemaVersion": 1,
@@ -32,7 +32,7 @@
         "startUrlAlza": {
             "title": "Start URL Alza",
             "type": "string",
-            "description": "Starting URL for scraping Alza.cz. Should lead to graphic cards section.",
+            "description": "Starting URL for scraping Alza.cz. Should lead to graphics cards section.",
             "editor": "textfield",
             "default": "https://www.alza.cz/graficke-karty/18842862.htm",
             "prefill": "https://www.alza.cz/graficke-karty/18842862.htm",
@@ -41,7 +41,7 @@
         "startUrlCzc": {
             "title": "Start URL CZC",
             "type": "string",
-            "description": "Starting URL for scraping czc.cz. Should lead to graphic cards section.",
+            "description": "Starting URL for scraping czc.cz. Should lead to graphics cards section.",
             "editor": "textfield",
             "default": "https://www.czc.cz/graficke-karty/produkty",
             "prefill": "https://www.czc.cz/graficke-karty/produkty",
@@ -50,7 +50,7 @@
         "startUrlMironet": {
             "title": "Start URL Mironet",
             "type": "string",
-            "description": "Starting URL for scraping mironet.cz. Should lead to graphic cards section.",
+            "description": "Starting URL for scraping mironet.cz. Should lead to graphics cards section.",
             "editor": "textfield",
             "default": "https://www.mironet.cz/graficke-karty+c14402",
             "prefill": "https://www.mironet.cz/graficke-karty+c14402",
@@ -59,7 +59,7 @@
         "startUrlTsbohemia": {
             "title": "Start URL TSBohemia",
             "type": "string",
-            "description": "Starting URL for scraping tsbohemia.cz. Should lead to graphic cards section.",
+            "description": "Starting URL for scraping tsbohemia.cz. Should lead to graphics cards section.",
             "editor": "textfield",
             "default": "https://www.tsbohemia.cz/elektronika-a-it-pc-komponenty-graficke-karty_c5581.html",
             "prefill": "https://www.tsbohemia.cz/elektronika-a-it-pc-komponenty-graficke-karty_c5581.html",

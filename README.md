@@ -1,4 +1,4 @@
-# Graphic cards scraper
+# Graphics cards scraper
 
 -   [Overview](#overview)
 -   [Input](#input)
@@ -7,7 +7,7 @@
 
 ## Overview
 
-This actor scrape all in-stock graphic cards in Czech E-shops. Output is saved to default dataset and contains: shop name, name of product and current price. Actor is lightweight and using only [CheerioCrawler](https://sdk.apify.com/docs/api/cheerio-crawler) for better [CU consumption](#cu-consumption) (no puppeteer). If you are interested only in some GPU models, you can filter saved data by input [**filter**](#input).
+This actor scrape all in-stock graphics cards in Czech E-shops. Output is saved to default dataset and contains: shop name, name of product and current price. Actor is lightweight and using only [CheerioCrawler](https://sdk.apify.com/docs/api/cheerio-crawler) for better [CU consumption](#cu-consumption) (no puppeteer). If you are interested only in some GPU models, you can filter saved data by input [**filter**](#input).
 
 ### Scraped E-shops
 
