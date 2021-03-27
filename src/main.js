@@ -27,7 +27,7 @@ Apify.main(async () => {
     const requestQueue = await Apify.openRequestQueue();
 
     // add all start URLs from input to queue
-    await requestQueue.addRequest({
+    /* await requestQueue.addRequest({
         url: startUrlAlza,
         userData: { label: ALZA },
     });
@@ -38,7 +38,7 @@ Apify.main(async () => {
     await requestQueue.addRequest({
         url: startUrlMironet,
         userData: { label: MIRONET },
-    });
+    }); */
     await requestQueue.addRequest({
         url: startUrlTsbohemia,
         userData: { label: TSBOHEMIA },
@@ -90,13 +90,20 @@ Apify.main(async () => {
     // filter results by filter input (if provided)
     if (filter && filter.length) {
         results = results.filter((result) => {
+            let filterOutput = false;
             const parsedName = result.name.replace(/\s/g, '').toLowerCase();
 
             for (const item of filter) {
                 const parsedFilter = item.replace(/\s/g, '').toLowerCase();
 
-                return parsedName.search(parsedFilter) > -1;
+                filterOutput = parsedName.search(parsedFilter) > -1;
+
+                if (filterOutput) {
+                    break;
+                }
             }
+
+            return filterOutput;
         });
     }
 
