@@ -27,7 +27,7 @@ Apify.main(async () => {
     const requestQueue = await Apify.openRequestQueue();
 
     // add all start URLs from input to queue
-    /* await requestQueue.addRequest({
+    await requestQueue.addRequest({
         url: startUrlAlza,
         userData: { label: ALZA },
     });
@@ -38,7 +38,7 @@ Apify.main(async () => {
     await requestQueue.addRequest({
         url: startUrlMironet,
         userData: { label: MIRONET },
-    }); */
+    });
     await requestQueue.addRequest({
         url: startUrlTsbohemia,
         userData: { label: TSBOHEMIA },
