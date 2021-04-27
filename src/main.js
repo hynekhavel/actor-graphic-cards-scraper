@@ -44,9 +44,6 @@ Apify.main(async () => {
         userData: { label: TSBOHEMIA },
     });
 
-    const queueInfo = await requestQueue.getInfo();
-    log.info(queueInfo);
-
     const options = {
         requestQueue,
         maxConcurrency: MAX_CONCURRENCY,
