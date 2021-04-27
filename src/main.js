@@ -44,7 +44,7 @@ Apify.main(async () => {
         userData: { label: TSBOHEMIA },
     });
 
-    const queueInfo = requestQueue.getInfo();
+    const queueInfo = await requestQueue.getInfo();
     log.info(queueInfo);
 
     const options = {
@@ -108,10 +108,10 @@ Apify.main(async () => {
 
             return filterOutput;
         });
-    }
 
-    // save output to default dataset
-    if (results.length > 0) {
-        await Apify.pushData({ results });
+        // save output to default dataset
+        for (const result of results) {
+            await Apify.pushData(result);
+        }
     }
 });
