@@ -106,6 +106,10 @@ Apify.main(async () => {
             return filterOutput;
         });
 
+        if (results.length) {
+            await Apify.pushData({ scrapedAt: new Date() });
+        }
+
         // save output to default dataset
         for (const result of results) {
             await Apify.pushData(result);
